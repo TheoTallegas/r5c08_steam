@@ -31,7 +31,24 @@ x_scaled = temp.div(x.std())
 
 
 # On calcule la modélisation de l'ACP
-pca = PCA(n_components=3)
+pca = PCA(n_components=6)
 pca_res = pca.fit_transform(x_scaled)
 
 print(pca_res)
+
+eig = pd.DataFrame({
+    "Dimension":
+    ["Dim" + str(x+1) for x in range(6)],
+    "Valeur propre": pca.explained_variance_,
+    "% valeur propre":
+    np.round(pca.explained_variance_ratio_ * 100),
+    "cum. valeur propre":
+    np.round(np.cumsum(pca.explained_variance_ratio_) * 100)
+})
+
+print(eig)
+
+y1 = list(pca.explained_variance_ratio_)
+x1 = range(len(y1))
+plt.bar(x1,y1)
+plt.show()
