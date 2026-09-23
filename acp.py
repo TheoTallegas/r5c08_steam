@@ -131,7 +131,7 @@ temp = x.sub(x.mean())
 x_scaled = temp.div(x.std())
 
 
-# On calcule la modélisation de l'ACP
+# 3.1 Calcul des valeurs propres
 pca = PCA(n_components=6)
 pca_res = pca.fit_transform(x_scaled)
 
