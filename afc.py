@@ -23,3 +23,10 @@ chi_square_value, p_value = calculate_bartlett_sphericity(data_scaled)
 
 print("Chi square : ", chi_square_value)
 print("p : ", p_value)
+
+
+fa = FactorAnalyzer(n_factors = 6, rotation=None)
+fa.fit(data_scaled)
+ev, v = fa.get_eigenvalues()
+print(ev)
+

@@ -191,8 +191,8 @@ pca_df.plot.scatter("Dim1", "Dim2",
 for cont, coul in couleurs.items():
     plt.scatter(80, position[cont] * 15 + 30, c = [coul], s = 20)
     plt.text(83, position[cont] * 15 + 28, str(cont))    
-    
-plt.xlabel("Dimension 1 (%)")
-plt.ylabel("Dimension 2 (%)")
+
+plt.xlabel("Dimension 1 : 30%")
+plt.ylabel("Dimension 2 : 23%")
 plt.suptitle("Premier plan factoriel (%)")
 plt.show()
