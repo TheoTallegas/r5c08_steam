@@ -151,8 +151,10 @@ print(eig)
 
 # Diagramme en bâtons des valeurs propres
 y1 = list(pca.explained_variance_ratio_)
-x1 = range(len(y1))
+x1 = range(1, len(y1) + 1)
 plt.bar(x1,y1)
+plt.xlabel("Dimensions")
+plt.ylabel("Valeur propre (%)")
 plt.show()
 
 # 3.2 Graphique des variables
@@ -163,3 +165,34 @@ biplot(score=pca_res[:,0:2],
          cat = y1[0:1], density = False)
 plt.show()
 
+# 3.3 Graphique des individus
+
+pca_df = pd.DataFrame({
+    "Dim1" : pca_res[:, 0],
+    "Dim2" : pca_res[:, 1],
+    "platforms" : data["platforms"]
+})
+
+pca_df.plot.scatter("Dim1", "Dim2")
+plt.xlabel("Dimension 1 (%)")
+plt.ylabel("Dimension 2 (%)")
+plt.suptitle("Premier plan factoriel (%)")
+plt.show()
+
+# 2ème partie du 3.3
+palette = plt.get_cmap("Dark2")
+couleurs = dict(zip(pca_df["platforms"].drop_duplicates(),
+                    palette(range(10))))
+position = dict(zip(couleurs.keys(), range(10)))
+
+
+pca_df.plot.scatter("Dim1", "Dim2",
+                    c = [couleurs[p] for p in pca_df["platforms"]])
+for cont, coul in couleurs.items():
+    plt.scatter(80, position[cont] * 15 + 30, c = [coul], s = 20)
+    plt.text(83, position[cont] * 15 + 28, str(cont))    
+    
+plt.xlabel("Dimension 1 (%)")
+plt.ylabel("Dimension 2 (%)")
+plt.suptitle("Premier plan factoriel (%)")
+plt.show()
